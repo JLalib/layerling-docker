@@ -1,0 +1,24 @@
+# Basado en el compose de docker/ del repositorio oficial
+services:
+  layerling:
+    image: henmedia/layerling:latest
+    container_name: layerling
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+      # Desactiva la telemetría de Next.js (1 = desactivada)
+      NEXT_TELEMETRY_DISABLED: "1"
+      # Color por defecto para quien entra por primera vez: system, light, dark o graphite
+      # LAYERLING_DEFAULT_THEME: "graphite"
+      # Carpeta compartida de proyectos (ver sección de configuración avanzada)
+      # LAYERLING_SHARED_PROJECTS_DIR: "/shared-projects"
+    volumes:
+      # Vistas previas de la pantalla de inicio: sobreviven a las actualizaciones
+      - layerling-thumbnails:/app/.codex/project-thumbnails
+      # - ./shared-projects:/shared-projects
+    restart: unless-stopped
+
+volumes:
+  layerling-thumbnails:
